@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* COLORS */
+$primary: #2C3E50;
+$secondary: #7F8C8D;
+$success: #68D3BE;
+$info: #2C81BA;
+$warning: #EF8A7F;
+$light: #F2F5F5;
+
+/* FONTS */
+
+$titles: 'Roboto', sans-serif;
