@@ -1,0 +1,41 @@
+<section id="auth">
+    <div class="auth_modal slide-in-right" #authModal>
+        <aside class="auth_modal__left_panel">
+            <img src="../../../assets/backgrounds/minimalistic_home.jpg" alt="Minimalistic background">
+        </aside>
+        <div class="auth_modal__auth_wrapper">
+            <div class="auth_content">
+                <h3>Hello,</h3>
+                <img src="../../../assets/icons/close_small.svg" alt="Close Button" id="close-button" (click)="closeAuthModal(authModal)">
+                <div class="auth_content__tabs">
+                    <span (click)="switchAuthTab('Register')" #registerTab [ngClass]="{'active': activeTab === 0}">Register</span>
+                    <span class="active" (click)="switchAuthTab('Login')" #loginTab [ngClass]="{'active': activeTab === 1}">Login</span>
+                </div>
+
+                <!-- Register Form -->
+                <form class="auth_register" #registerWrapper #registerWrapperForm="ngForm" (ngSubmit)="registeAccount(registerWrapperForm)">
+                    <div class="auth_content__register_inputs">
+                        <input type="text" placeholder="Username" name="username" required ngModel>
+                        <input type="password" placeholder="Password" name="password" required ngModel>
+                        <input type="password" placeholder="Confirm Password" name="confirmPassword" required ngModel>
+                    </div>
+                    <div class="auth_content__terms_alert">
+                        <input type="checkbox" name="" id="" />
+                        <span>I accept the terms of <a>privacy policy</a>.</span>
+                    </div>
+                    <input type="submit" value="Register" id="register" />
+                </form>
+
+                <!-- Login Form -->
+                <form class="auth_login" #loginWrapper  #loginWrapperForm="ngForm" (ngSubmit)="loginAccount(loginWrapperForm)">
+                    <div class="auth_content__login_inputs">
+                        <input type="text" placeholder="Username" name="username" required ngModel>
+                        <input type="password" placeholder="Password" name="password" required ngModel>
+                    </div>
+                    <input type="submit" value="Login" id="login" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</section>

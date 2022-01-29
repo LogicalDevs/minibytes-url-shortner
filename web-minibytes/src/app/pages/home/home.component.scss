@@ -53,23 +53,7 @@
 }
 
 .home_apresentation__introduction a#developed_by {
-    pointer-events: all;
-    color: $secondary;
-    position: relative;
-    z-index: 3;
-
-    &:hover::before {
-        width: 0%;
-        height: 2px;
-        background-color: $secondary;
-        content: "";
-        left: 0;
-        bottom: 0;
-        position: absolute;
-        animation: 0.3s anchorUnderline linear;
-        animation-fill-mode: forwards;
-        z-index: 2;
-    }
+    @include anchorUnderline();
 }
 
 .home_apresentation__introduction > h1 {
@@ -166,16 +150,6 @@
 
     .home_apresentation__introduction > h1 {
         font-size: 2.5rem;
-    }
-}
-
-
-@keyframes anchorUnderline {
-    0% {
-        width: 0%;
-    }
-    100% {
-        width: 100%;
     }
 }
 
