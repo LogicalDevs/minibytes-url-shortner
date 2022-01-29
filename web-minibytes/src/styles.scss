@@ -1,1 +1,55 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* COLORS */
+$primary: #2c3e50;
+$secondary: #39ecae;
+$success: #68d3be;
+$info: #2c81ba;
+$warning: #ef8a7f;
+$light: #f2f5f5;
+
+/* FONTS */
+$main-font: "Roboto", sans-serif;
+
+span,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    font-family: $main-font;
+}
+
+a {
+    text-decoration: none;
+}
+
+@mixin buttons($bg, $color) {
+    background-color: $bg;
+    color: $color;
+    font-family: $main-font;
+    font-size: 1rem;
+    margin-top: 2vh;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    border: none;
+    border-radius: 2px;
+
+    &:active {
+        transform: translateY(1px);
+    }
+
+    @media (max-width: 575.98px) {
+        width: 40vw;
+        padding: 10px 20px;
+    }
+}

@@ -1,0 +1,189 @@
+@import "../../../styles.scss";
+
+#home {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.home_apresentation {
+    width: 100%;
+    height: 70vh;
+    padding-top: 7vh;
+    z-index: 1;
+    background-color: $primary;
+    display: grid;
+    grid-template-columns: 60% 40%;
+    position: relative;
+
+
+    > img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: -1;
+        opacity: .2;
+        pointer-events: none;
+    }
+    
+    &__introduction {
+        height: 100%;
+        width: 100%;
+        padding-left: 3vw;
+        z-index: 2;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        
+        
+        > span {
+            color: white;
+            font-weight: lighter;
+            margin-bottom: 1vh;
+        }
+
+        > button {
+            @include buttons($secondary, $primary);
+            background-color: $secondary;
+            color: $primary;
+            pointer-events: all;
+        }
+    }
+}
+
+.home_apresentation__introduction a#developed_by {
+    pointer-events: all;
+    color: $secondary;
+    position: relative;
+    z-index: 3;
+
+    &:hover::before {
+        width: 0%;
+        height: 2px;
+        background-color: $secondary;
+        content: "";
+        left: 0;
+        bottom: 0;
+        position: absolute;
+        animation: 0.3s anchorUnderline linear;
+        animation-fill-mode: forwards;
+        z-index: 2;
+    }
+}
+
+.home_apresentation__introduction > h1 {
+    color: white;
+    font-size: 3rem;
+    font-weight: bolder;
+
+    > span {
+        position: relative;
+        z-index: 2;
+        color: $secondary;
+    }
+}
+
+.home_apresentation__mockup {
+    width: 100%;
+    height: 100%;
+    overflow-y: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    > img {
+        width: 80%;
+        animation: 2s computer infinite;
+        animation-direction: alternate;
+        pointer-events: none;
+    }
+}
+
+.home_account_action {
+    width: 100%;
+    min-height: 30vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2vw 2vh;
+
+    > h3 {
+        font-size: 1.8rem;
+    }
+
+    &__triggers > button{
+        @include buttons($secondary, $primary);
+        width: 8vw;
+        margin: 0vh .5vw;
+        margin-top: 5vh;
+        transition-duration: 1s;
+
+        &:hover {
+            background-color: $primary;
+            color: white;
+        }
+    }
+
+    .home_account_action__triggers-login {
+        @include buttons(transparent, $primary);
+        border: 2px solid $primary;
+
+        &:hover {
+            background-color: $primary;
+            color: white;
+        }
+    }
+}
+
+
+@media (max-width: 575.98px) {
+    .home_apresentation {
+        grid-template-columns: unset;
+        grid-template-rows: 100%;
+        margin-right: 2vw;
+    }
+
+    .home_apresentation__mockup {
+        display: none;
+    }
+
+    .home_account_action {
+
+        > h3 {
+            text-align: center;
+        }
+    }
+
+    .home_account_action__triggers {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .home_apresentation__introduction > h1 {
+        font-size: 2.5rem;
+    }
+}
+
+
+@keyframes anchorUnderline {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+@keyframes computer {
+    0% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(15px);
+    }
+}
