@@ -53,3 +53,34 @@ a {
         padding: 10px 20px;
     }
 }
+
+
+@mixin anchorUnderline() {
+    pointer-events: all;
+    color: $secondary;
+    position: relative;
+    z-index: 3;
+    cursor: pointer;
+
+    &:hover::before {
+        width: 0%;
+        height: 1px;
+        background-color: $secondary;
+        content: "";
+        left: 0;
+        bottom: 0;
+        position: absolute;
+        animation: 0.3s anchorUnderline linear;
+        animation-fill-mode: forwards;
+        z-index: 2;
+    }
+}
+
+@keyframes anchorUnderline {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 100%;
+    }
+}
