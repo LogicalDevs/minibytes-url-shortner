@@ -32,8 +32,13 @@ export class AuthComponent implements OnInit {
     this.registerWrapper.nativeElement.style.display = 'flex';
   }
 
-  closeAuthModal(): void {
-    this.componentToggler.authenticationModal = false;
+  closeAuthModal(authWrapper: HTMLElement, authModal: HTMLElement): void {
+    authModal.classList.remove('slide-in-right');
+    authModal.classList.add('slide-out-left');
+
+    setTimeout(() => {
+      this.componentToggler.authenticationModal = false;
+    }, 500);
   }
 
   registeAccount(registerWrapper): void {
