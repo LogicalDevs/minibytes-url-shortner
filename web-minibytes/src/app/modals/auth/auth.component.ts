@@ -32,7 +32,7 @@ export class AuthComponent implements OnInit {
     this.registerWrapper.nativeElement.style.display = 'flex';
   }
 
-  closeAuthModal(authWrapper: HTMLElement, authModal: HTMLElement): void {
+  closeAuthModal(authModal: HTMLElement): void {
     authModal.classList.remove('slide-in-right');
     authModal.classList.add('slide-out-left');
 

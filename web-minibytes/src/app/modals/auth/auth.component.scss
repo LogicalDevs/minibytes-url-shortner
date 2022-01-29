@@ -30,6 +30,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    min-height: 100vh;
 }
 
 .auth_modal {
@@ -167,6 +168,39 @@
 
         > input {
             @include inputs();
+        }
+    }
+}
+
+@media (max-width: 575.98px) {
+    .auth_modal {
+        grid-template-columns: 100%;
+        width: 100%;
+        height: 100%;
+        background-color: transparent;
+
+        &__left_panel {
+            position: absolute;
+            opacity: 0.3;
+        }
+
+        .auth_modal__left_panel > img {
+            opacity: 1;
+        }
+    }
+
+    .auth_content {
+        width: 90%;
+        height: 60%;
+        padding: 2vh 5vw;
+
+        > h3 {
+            font-size: 2rem;
+        }
+
+        &__tabs span {
+            margin-right: 4vw;
+            font-size: 1rem;
         }
     }
 }
