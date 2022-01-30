@@ -7,5 +7,5 @@ export class ComponentTogglerService {
 
   constructor() { }
 
-  authenticationModal = true;
+  authenticationModal = false;
 }
