@@ -13,6 +13,8 @@ export class AuthComponent implements OnInit {
   ) { }
 
   ngOnInit(): void { }
+  
+  captcha: string;
 
   @ViewChild('registerWrapper') registerWrapper: ElementRef;
   @ViewChild('loginWrapper') loginWrapper: ElementRef;
@@ -39,6 +41,11 @@ export class AuthComponent implements OnInit {
     setTimeout(() => {
       this.componentToggler.authenticationModal = false;
     }, 500);
+  }
+
+  resolved(captchaResponse: string): void {
+    this.captcha = captchaResponse;
+    console.log("captcha ->", this.captcha);
   }
 
   registeAccount(registerWrapper): void {
