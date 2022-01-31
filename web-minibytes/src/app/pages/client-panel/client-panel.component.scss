@@ -1,0 +1,106 @@
+@import "../../../styles.scss";
+
+#client_panel {
+    width: 100%;
+    height: 100vh;
+    padding: 0 2vw;
+    padding-top: 10vh;
+}
+
+.active_urls_chart_wrapper {
+    width: 100%;
+    min-height: 30vh;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    overflow-x: visible;
+    margin-top: 3vh;
+
+    .active_urls_stats {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .active_urls_chart {
+        max-width: 100%;
+        height: 30vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        > canvas {
+            max-width: 90%;
+            max-height: 100%;
+        }
+    }
+}
+
+.active_urls_stats__item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0vh 1vw;
+    margin: 2vh 0vw;
+
+    > img {
+        width: 35px;
+        margin-right: 2vw;
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+
+        .stats_item_title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .stats_item_number {
+            color: rgb(88, 88, 88);
+        }
+    }
+}
+
+
+
+
+.user_urls_container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    max-height: 30vh;
+    border: 1px solid red;
+}
+
+.user_urls_table_wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 30vh;
+    
+    > table {
+        margin-top: 1vh;
+        max-height: 100%;
+        width: 100%;
+    }
+
+    td {
+        border-bottom: 1px solid #E9EDF5;
+        padding: 1vh 3vw .9vh 0vw;
+        font-size: .9rem;
+        color: $primary;
+    }
+
+    th {
+        background-color: $primary;
+        color: whitesmoke;
+        font-family: $main-font;
+        font-weight: 300;
+        text-align: start;
+        display: none;
+    }
+}

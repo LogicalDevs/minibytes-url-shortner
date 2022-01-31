@@ -1,0 +1,147 @@
+<app-navbar></app-navbar>
+
+<section id="client_panel">
+    <div class="active_urls_chart_wrapper scroll-width-none" (wheel)="onWheel($event)" #scrollableUrlStats>
+        <div class="active_urls_stats">
+            <div class="active_urls_stats__item">
+                <img src="../../../assets/icons/active_links.svg" alt="">
+                <div class="active_urls_stats__item__content">
+                    <span class="stats_item_title">Active Url's</span>
+                    <span class="stats_item_number">0</span>
+                </div>
+            </div>
+            <div class="active_urls_stats__item">
+                <img src="../../../assets/icons/nClicks.svg" alt="">
+                <div class="active_urls_stats__item__content">
+                    <span class="stats_item_title">Total</span>
+                    <span class="stats_item_number">0</span>
+                </div>
+            </div>
+        </div>
+        <div class="active_urls_chart">
+            <canvas id="canvas" >{{ chart }}</canvas>
+        </div>
+    </div>
+
+    <div class="user_urls_container">
+        <div class="user_urls_table_wrapper scroll-width-none">
+            <table>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Tag</th>
+                    <th>Status</th>
+                    <th>Start Date</th>
+                    <th>Impressions</th>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+                <tr>
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td>Open</td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                </tr>
+            </table>
+        </div>
+        <div class="user_urls_create">
+
+        </div>
+    </div>
+</section>

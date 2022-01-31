@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AuthComponent } from './modals/auth/auth.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { AuthComponent } from './modals/auth/auth.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RecaptchaModule
+    RecaptchaModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -24,12 +24,24 @@ h2,
 h3,
 h4,
 h5,
+th,
+td,
 p {
     font-family: $main-font;
 }
 
 a {
     text-decoration: none;
+}
+
+.scroll-width-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 @mixin buttons($bg, $color) {
