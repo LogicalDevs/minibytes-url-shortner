@@ -21,7 +21,7 @@ export class ClientPanelComponent implements OnInit {
 
   constructor() {
     Chart.register(...registerables);
-    Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
+    Chart.register(LineController, LineElement, PointElement, LinearScale, Title,);
   }
 
   ngOnInit(): void {
@@ -32,16 +32,16 @@ export class ClientPanelComponent implements OnInit {
     this.chart = new Chart('canvas', {
       type: "bar",
       data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Green", "Purple", "Orange", "Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Green", "Purple", "Orange"],
+        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
         datasets: [
           {
             label: "Impressions",
-            data: [12, 19, 3, 5, 2, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3, 5, 2, 3],
+            data: [12, 19, 3, 5, 2, 3, 5,12, 19, 3, 5, 2, 3, 5],
             backgroundColor: [
-              "#2C3E50",
+              "#2c3e50b9",
             ],
             borderColor: [
-              "#2C3E50"
+              "#39ecae"
             ],
             borderWidth: 1
           }
@@ -52,4 +52,11 @@ export class ClientPanelComponent implements OnInit {
       }
     })
   }
+
+  @ViewChild('scrollableUrlStats') scrollableUrlStats: ElementRef
+
+  onWheel(event: WheelEvent): void {
+    if (event.deltaY > 0) this.scrollableUrlStats.nativeElement.scrollLeft += 40;
+    else this.scrollableUrlStats.nativeElement.scrollLeft -= 40;
+ } 
 }

@@ -32,6 +32,16 @@ a {
     text-decoration: none;
 }
 
+.scroll-width-none {
+    scrollbar-width: none;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 @mixin buttons($bg, $color) {
     background-color: $bg;
     color: $color;
