@@ -88,6 +88,7 @@
     flex-grow: 1;
     align-content: center;
     justify-items: center;
+    margin-left: 1vw;
 }
 
 .user_urls_table_wrapper {
@@ -129,6 +130,7 @@
     padding: 2px 0px;
     background-color: rgba(27, 101, 170, 0.158);
     border-radius: 5px;
+    margin-left: 1vw;
 
     .url_state_dot {
         width: 10px;
