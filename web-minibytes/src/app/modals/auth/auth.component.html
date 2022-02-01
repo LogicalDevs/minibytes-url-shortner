@@ -16,8 +16,7 @@
                 </div>
 
                 <!-- Register Form -->
-                <form class="auth_register" #registerWrapper #registerWrapperForm="ngForm"
-                    (ngSubmit)="registeAccount(registerWrapperForm)">
+                <form class="auth_register" #registerWrapper #registerWrapperForm="ngForm" (ngSubmit)="registeAccount(registerWrapperForm)">
                     <div class="auth_content__register_inputs">
                         <input type="text" placeholder="Username" name="username" required ngModel>
                         <input type="password" placeholder="Password" name="password" required ngModel>
