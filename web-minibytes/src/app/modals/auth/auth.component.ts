@@ -57,7 +57,6 @@ export class AuthComponent implements OnInit {
   }
 
   loginAccount(loginForm): void {
-    
     this.auth.loginUser(
       loginForm.form.value.username, 
       loginForm.form.value.password
@@ -67,7 +66,7 @@ export class AuthComponent implements OnInit {
       },
       error => {
         //TODO: ADD ERROR MODAL
-        console.log(error)  
+        console.log(error);  
       }
     )
   }
