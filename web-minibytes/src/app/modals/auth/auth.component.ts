@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
   constructor(
     public componentToggler: ComponentTogglerService,
     private auth: AuthenticationService,
-    private router: Router,
+    private _router: Router,
   ) { }
 
   ngOnInit(): void { }
@@ -56,13 +56,20 @@ export class AuthComponent implements OnInit {
     console.log(registerWrapper);
   }
 
-  loginAccount(loginForm): void {
+  loginAccount(loginForm, authModal: HTMLElement): void {
     this.auth.loginUser(
       loginForm.form.value.username, 
       loginForm.form.value.password
     ).subscribe(
       data => {
         localStorage.setItem('userToken', data['token']);
+       
+        authModal.classList.remove('slide-in-right');
+        authModal.classList.add('slide-out-left');
+
+        setTimeout(() => {
+          this._router.navigate(['client-panel']);
+        }, 500);
       },
       error => {
         //TODO: ADD ERROR MODAL

@@ -37,7 +37,7 @@
 
                 <!-- Login Form -->
                 <form class="auth_login" #loginWrapper #loginWrapperForm="ngForm"
-                    (ngSubmit)="loginAccount(loginWrapperForm)">
+                    (ngSubmit)="loginAccount(loginWrapperForm, authModal)">
                     <div class="auth_content__login_inputs">
                         <input type="text" placeholder="Username" name="username" required ngModel>
                         <input type="password" placeholder="Password" name="password" required ngModel>
