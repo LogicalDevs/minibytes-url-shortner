@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CreateUser } from 'src/app/interfaces/auth/create-user';
 import { AuthenticationService } from 'src/app/services/auth/authentication.service';
@@ -10,23 +10,34 @@ import { ComponentTogglerService } from 'src/app/services/component-toggler.serv
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
-  
+
   constructor(
     public componentToggler: ComponentTogglerService,
     private auth: AuthenticationService,
     private _router: Router,
+    private cdRef: ChangeDetectorRef
   ) { }
 
-  ngOnInit(): void { }
-  
-  captcha: string;
-
+  @Input() actionType: string;
   @ViewChild('registerWrapper') registerWrapper: ElementRef;
   @ViewChild('loginWrapper') loginWrapper: ElementRef;
-
+  
+  captcha: string;
   activeTab: number = 1;
+  
+  ngOnInit(): void {}
 
+  ngAfterViewChecked(): void {
+    if (this.actionType === 'Login') this.switchAuthTab('Login');
+    if (this.actionType === 'Register') this.switchAuthTab('Register');
+
+    this.cdRef.detectChanges();
+  }
+
+  
   switchAuthTab(tabName: string): void {
+    console.log("entrou");
+
     if (tabName === 'Login') {
       this.activeTab = 1;
       this.loginWrapper.nativeElement.style.display = 'flex';
@@ -48,17 +59,12 @@ export class AuthComponent implements OnInit {
     }, 500);
   }
 
-  resolved(captchaResponse: string): void {
-    this.captcha = captchaResponse;
-    console.log("captcha ->", this.captcha);
-  }
-
-  registeAccount(registerForm): void {
+  registeAccount(registerForm, authModal: HTMLElement): void {
     const formData = registerForm.form.value;
-    
+
     if (registerForm.form.status === 'INVALID') return;
     if (!formData.password === formData.confirmPassword) return;
-      
+
     const createUser: CreateUser = {
       name_user: formData.username,
       username: formData.username,
@@ -67,31 +73,41 @@ export class AuthComponent implements OnInit {
     }
 
     this.auth.registerUser(createUser).subscribe(
-      data => console.log(data),
+      data => {
+        this.switchAuthTab('Login')
+      },
       error => console.log(error)
     );
   }
 
   loginAccount(loginForm, authModal: HTMLElement): void {
     this.auth.loginUser(
-      loginForm.form.value.username, 
+      loginForm.form.value.username,
       loginForm.form.value.password
     ).subscribe(
       data => {
         localStorage.setItem('userToken', data['token']);
-       
-        authModal.classList.remove('slide-in-right');
-        authModal.classList.add('slide-out-left');
 
-        setTimeout(() => {
-          this._router.navigate(['client-panel']);
-        }, 500);
+        this.sucessAuthentication(authModal);
       },
       error => {
         //TODO: ADD ERROR MODAL
-        console.log(error);  
+        console.log(error);
       }
     )
   }
 
+  resolved(captchaResponse: string): void {
+    this.captcha = captchaResponse;
+    console.log("captcha ->", this.captcha);
+  }
+
+  sucessAuthentication(authModal: HTMLElement): void {
+    authModal.classList.remove('slide-in-right');
+    authModal.classList.add('slide-out-left');
+
+    setTimeout(() => {
+      this._router.navigate(['client-panel']);
+    }, 500);
+  }
 }

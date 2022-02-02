@@ -1,4 +1,4 @@
-<app-auth *ngIf="componentToggler.authenticationModal"></app-auth>
+<app-auth [actionType]="actionType" *ngIf="componentToggler.authenticationModal"></app-auth>
 
 <main id="home">
     <nav id="navbar">
@@ -24,8 +24,8 @@
     <section class="home_account_action">
         <h3>Let's save some bits together!</h3>
         <div class="home_account_action__triggers">
-            <button class="home_account_action__triggers" (click)="callAuthModal()">Register</button>
-            <button class="home_account_action__triggers-login" (click)="callAuthModal()">Login</button>
+            <button class="home_account_action__triggers" (click)="callAuthModal('Register')">Register</button>
+            <button class="home_account_action__triggers-login" (click)="callAuthModal('Login')">Login</button>
         </div>
     </section>
 </main>

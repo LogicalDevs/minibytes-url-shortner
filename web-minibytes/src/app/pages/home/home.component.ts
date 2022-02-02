@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
 
 @Component({
@@ -8,14 +8,17 @@ import { ComponentTogglerService } from 'src/app/services/component-toggler.serv
 })
 export class HomeComponent implements OnInit {
 
+  @Input() actionType: string;
+
   captcha: string;
 
-  constructor(public componentToggler : ComponentTogglerService) { }
+  constructor(public componentToggler: ComponentTogglerService) { }
 
   ngOnInit(): void {
   }
 
-  callAuthModal(): void {
+  callAuthModal(action: string): void {
+    this.actionType = action;
     this.componentToggler.authenticationModal = true;
   }
 
