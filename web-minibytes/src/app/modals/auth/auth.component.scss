@@ -8,6 +8,11 @@
     width: 100%;
     padding: 15px 5px;
     outline-color: $primary;
+
+    
+    &:invalid {
+        border: 1px solid $warning;
+    }
 }
 
 #close-button {

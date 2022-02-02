@@ -18,12 +18,12 @@
                 <!-- Register Form -->
                 <form class="auth_register" #registerWrapper #registerWrapperForm="ngForm" (ngSubmit)="registeAccount(registerWrapperForm)">
                     <div class="auth_content__register_inputs">
-                        <input type="text" placeholder="Username" name="username" required ngModel>
+                        <input type="text" placeholder="Username" name="username" required ngModel minlength="4">
                         <input type="password" placeholder="Password" name="password" required ngModel>
                         <input type="password" placeholder="Confirm Password" name="confirmPassword" required ngModel>
                     </div>
                     <div class="auth_content__terms_alert">
-                        <input type="checkbox" name="" id="" />
+                        <input type="checkbox" name="terms" id="" required ngModel/>
                         <span>I accept the terms of <a>privacy policy</a>.</span>
                     </div>
                     <div [hidden]="captcha">

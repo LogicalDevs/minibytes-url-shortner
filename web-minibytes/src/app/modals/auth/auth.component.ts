@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { CreateUser } from 'src/app/interfaces/auth/create-user';
 import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
 
@@ -52,8 +53,23 @@ export class AuthComponent implements OnInit {
     console.log("captcha ->", this.captcha);
   }
 
-  registeAccount(registerWrapper): void {
-    console.log(registerWrapper);
+  registeAccount(registerForm): void {
+    const formData = registerForm.form.value;
+    
+    if (registerForm.form.status === 'INVALID') return;
+    if (!formData.password === formData.confirmPassword) return;
+      
+    const createUser: CreateUser = {
+      name_user: formData.username,
+      username: formData.username,
+      password: formData.password,
+      confirmpassword: formData.password,
+    }
+
+    this.auth.registerUser(createUser).subscribe(
+      data => console.log(data),
+      error => console.log(error)
+    );
   }
 
   loginAccount(loginForm, authModal: HTMLElement): void {
