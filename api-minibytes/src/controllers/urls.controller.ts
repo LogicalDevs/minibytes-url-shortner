@@ -7,6 +7,7 @@ import { pool } from '../database';
 import urlInterface from '../interfaces/url.interface';
 import { verifyURL } from '../namespaces/url.namespace';
 import { verifyTag } from '../namespaces/tags.namespace';
+import allowAuth from '../middlewares/allow.auth';
 
 
 export const getUrls = async (req: Request, res: Response): Promise<Response> => {
@@ -38,6 +39,10 @@ export const createUrl = async (req: Request, res: Response): Promise<Response> 
 
         if(!id_user) return res.status(400).json("User ID must be inserted!")
         if(!Number(id_user)) return res.status(400).json("User ID must be a number!")
+
+        const userVerification = await pool.query(`SELECT * FROM users WHERE id_user = ${id_user}`);
+        if(!userVerification.rowCount) return res.status(400).json("User must exist!")
+
         if(!name_url) return res.status(400).json("URL Name must be inserted!")
         if(!main_url) return res.status(400).json("Main URL must be inserted!")
         if(!verifyURL.urlValidator.isValid(main_url)) return res.status(400).json("Main URL is not a valid URL!")
@@ -86,4 +91,21 @@ export const deleteUrlByID  = async (req: Request, res: Response): Promise<Respo
     }
 }
 
-export default { getUrls, getUrlByID, createUrl, deleteUrlByID };
+export const updateUrlByID  = async (req: Request, res: Response): Promise<Response> => {
+    
+    const data = req.body
+    const verifyOwnership = await allowAuth.allowAuth(req, res, data.user_id)
+
+    if(!verifyOwnership) return res.status(401).json('Not authorized!')
+
+    try{
+        const linkID = parseInt(req.params.id)
+        const response: QueryResult = await pool.query(`UPDATE urls SET name_url = '${data.name_url}', tags = '${data.tags}' WHERE id_url = ${linkID}`);
+        return res.json(`Link ${linkID} updated sucessfully`);
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server Error')
+    }
+}
+export default { getUrls, getUrlByID, createUrl, deleteUrlByID, updateUrlByID };

@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { config } from '../config';
 
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
 
@@ -11,7 +10,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
     const [, token] = authHeader.split(' ');
 
     try {
-        await jwt.verify(token, config.authToken)
+        await jwt.verify(token, process.env.AUTH_TOKEN!)
         next()
     } catch (e) {
         return res.status(401).json('Token invalid!');

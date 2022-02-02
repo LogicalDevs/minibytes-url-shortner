@@ -31,6 +31,17 @@ export const getUserByID = async (req: Request, res: Response): Promise<Response
     }
 }
 
+export const getUserByIDAllowAuth = async (req: Request, res: Response, incomingUserID: number) => {
+    try{
+        const response: QueryResult = await pool.query(`SELECT * FROM users WHERE id_user = ${incomingUserID}`);
+        return response.rows[0];
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server Error')
+    }
+}
+
 export const getUserByUsername = async (req: Request, res: Response) => {
     try{
         let { username } = req.body
@@ -106,4 +117,4 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
     }
 }
 
-export default { getUsers, getUserByID, getUserByUsername, createUser };
+export default { getUsers, getUserByID, getUserByIDAllowAuth, getUserByUsername, createUser };
