@@ -1,4 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
 
 @Component({
@@ -9,7 +11,9 @@ import { ComponentTogglerService } from 'src/app/services/component-toggler.serv
 export class AuthComponent implements OnInit {
   
   constructor(
-    public componentToggler: ComponentTogglerService
+    public componentToggler: ComponentTogglerService,
+    private auth: AuthenticationService,
+    private _router: Router,
   ) { }
 
   ngOnInit(): void { }
@@ -52,7 +56,26 @@ export class AuthComponent implements OnInit {
     console.log(registerWrapper);
   }
 
-  loginAccount(loginWrapper): void {
-    console.log(loginWrapper);
+  loginAccount(loginForm, authModal: HTMLElement): void {
+    this.auth.loginUser(
+      loginForm.form.value.username, 
+      loginForm.form.value.password
+    ).subscribe(
+      data => {
+        localStorage.setItem('userToken', data['token']);
+       
+        authModal.classList.remove('slide-in-right');
+        authModal.classList.add('slide-out-left');
+
+        setTimeout(() => {
+          this._router.navigate(['client-panel']);
+        }, 500);
+      },
+      error => {
+        //TODO: ADD ERROR MODAL
+        console.log(error);  
+      }
+    )
   }
+
 }

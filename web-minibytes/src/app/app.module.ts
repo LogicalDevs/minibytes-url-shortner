@@ -10,6 +10,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AuthComponent } from './modals/auth/auth.component';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './interceptor/auth/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,9 +26,10 @@ import { CommonModule } from '@angular/common';
     AppRoutingModule,
     FormsModule,
     RecaptchaModule,
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [AuthInterceptor],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
