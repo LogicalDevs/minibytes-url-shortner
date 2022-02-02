@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { config } from '../config';
 import jwt from 'jsonwebtoken';
 import userController from '../controllers/users.controller';
 import * as bcrypt from 'bcrypt';
@@ -13,18 +12,11 @@ export const login = async (req: Request, res: Response) => {
     if (!user) return res.status(404).json('User not found');
     if (!(await bcrypt.compare(password.toString(), user.password))) return res.status(404).json('User not found')
 
-    const token = jwt.sign({ id: user.id_user }, config.authToken, {
+    const token = jwt.sign({ id: user.id_user }, process.env.AUTH_TOKEN!, {
         expiresIn: '3d'
     })
 
-    const data = {
-        id_user: user.id_user,
-        name_user: user.name_user,
-        username: user.username,
-        token
-    }
-
-    return res.json(data)
+    return res.json({ token })
 }
 
 export default { login };
