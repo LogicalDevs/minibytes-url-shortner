@@ -12,6 +12,7 @@ import { AuthComponent } from './modals/auth/auth.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptor/auth/token.interceptor';
+import { QrcodeModalComponent } from './shared/qrcode-modal/qrcode-modal.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AuthInterceptor } from './interceptor/auth/token.interceptor';
     HomeComponent,
     NavbarComponent,
     AuthComponent,
-    ClientPanelComponent
+    ClientPanelComponent,
+    QrcodeModalComponent
   ],
   imports: [
     BrowserModule,
