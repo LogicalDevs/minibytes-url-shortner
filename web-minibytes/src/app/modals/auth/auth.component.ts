@@ -32,13 +32,13 @@ export class AuthComponent implements OnInit {
   ngAfterViewChecked(): void {
     if (this.actionType === 'Login') this.switchAuthTab('Login');
     if (this.actionType === 'Register') this.switchAuthTab('Register');
-
+    this.actionType = '';
     this.cdRef.detectChanges();
   }
 
 
   switchAuthTab(tabName: string): void {
-    console.log("entrou");
+    console.log("entrou", tabName);
 
     if (tabName === 'Login') {
       this.activeTab = 1;
