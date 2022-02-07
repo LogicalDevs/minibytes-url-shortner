@@ -1,3 +1,4 @@
+<app-alert-modal *ngIf="componentToggler.alertModal" [alert]="alertModal"></app-alert-modal>
 <app-navbar></app-navbar>
 <app-qrcode-modal *ngIf="componentToggler.qrCodeModal"></app-qrcode-modal>
 
@@ -141,9 +142,9 @@
                 CREATED IN: 31/01, 16:14
             </div>
             <div class="user_urls_about__item">
-                <input type="text" value="https://www.minibytes/ola">
+                <input type="text" value="https://www.minibytes/ola" id="text-content">
                 <div class="user_url_options">
-                    <button>Copy</button>
+                    <button ngxClipboard [cbContent]="'short url'">Copy</button>
                     <button>Edit</button>
                     <button>Status</button>
                     <button (click)="openQrCode()">QR Code</button>

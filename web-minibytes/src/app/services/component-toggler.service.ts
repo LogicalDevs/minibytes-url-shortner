@@ -8,5 +8,6 @@ export class ComponentTogglerService {
   constructor() { }
 
   authenticationModal: boolean = false;
-  qrCodeModal: boolean = true;
+  qrCodeModal: boolean = false;
+  alertModal: boolean = false;
 }
