@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertModal } from 'src/app/interfaces/alert/alert-modal';
 import { CreateUser } from 'src/app/interfaces/auth/create-user';
 import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
@@ -19,13 +20,14 @@ export class AuthComponent implements OnInit {
   ) { }
 
   @Input() actionType: string;
+  @Input() alertModal: AlertModal;
   @ViewChild('registerWrapper') registerWrapper: ElementRef;
   @ViewChild('loginWrapper') loginWrapper: ElementRef;
-  
+
   captcha: string;
   activeTab: number = 1;
-  
-  ngOnInit(): void {}
+
+  ngOnInit(): void { }
 
   ngAfterViewChecked(): void {
     if (this.actionType === 'Login') this.switchAuthTab('Login');
@@ -34,7 +36,7 @@ export class AuthComponent implements OnInit {
     this.cdRef.detectChanges();
   }
 
-  
+
   switchAuthTab(tabName: string): void {
     console.log("entrou");
 
@@ -74,9 +76,17 @@ export class AuthComponent implements OnInit {
 
     this.auth.registerUser(createUser).subscribe(
       data => {
-        this.switchAuthTab('Login')
+        this.switchAuthTab('Login');
       },
-      error => console.log(error)
+      error => {
+        this.alertModal = {
+          success: false,
+          message: 'Something went wrong!',
+          code: error.status
+        }
+
+        this.componentToggler.alertModal = true;
+      }
     );
   }
 
@@ -84,17 +94,22 @@ export class AuthComponent implements OnInit {
     this.auth.loginUser(
       loginForm.form.value.username,
       loginForm.form.value.password
+      
     ).subscribe(
       data => {
         localStorage.setItem('userToken', data['token']);
-
         this.sucessAuthentication(authModal);
+
       },
       error => {
-        //TODO: ADD ERROR MODAL
-        console.log(error);
+        this.alertModal = {
+          success: false,
+          message: 'Something went wrong!',
+          code: error.status
+        }
+        this.componentToggler.alertModal = true;
       }
-    )
+    );
   }
 
   resolved(captchaResponse: string): void {

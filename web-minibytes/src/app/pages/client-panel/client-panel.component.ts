@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import {
   Chart,
   registerables,
@@ -10,6 +10,7 @@ import {
   Title,
 } from 'chart.js';
 import { Observable, Observer } from 'rxjs';
+import { AlertModal } from 'src/app/interfaces/alert/alert-modal';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
 
 @Component({
@@ -19,6 +20,7 @@ import { ComponentTogglerService } from 'src/app/services/component-toggler.serv
 })
 export class ClientPanelComponent implements OnInit {
   public chart: Chart;
+  @Input() alertModal: AlertModal; 
 
   constructor(public componentToggler: ComponentTogglerService) {
     Chart.register(...registerables);
