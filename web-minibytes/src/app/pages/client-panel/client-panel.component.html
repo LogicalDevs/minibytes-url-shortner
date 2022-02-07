@@ -1,4 +1,5 @@
 <app-navbar></app-navbar>
+<app-qrcode-modal *ngIf="componentToggler.qrCodeModal"></app-qrcode-modal>
 
 <section id="client_panel">
     <div class="active_urls_chart_wrapper scroll-width-none" (wheel)="onWheel($event)" #scrollableUrlStats>
@@ -104,6 +105,34 @@
                     <td>minibytes/asdas</td>
                     <td>Social</td>
                 </tr>
+                <tr class="table_url_row">
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td class="table_url_state">
+                        <div class="table_url_state__wrapper">
+                            <div class="url_state_dot"></div>
+                            <span>ACTIVE</span>
+                        </div>
+                    </td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                    <td>Social</td>
+                </tr>
+                <tr class="table_url_row">
+                    <td class="table_url_id">2</td>
+                    <td>Website pipi</td>
+                    <td class="table_url_state">
+                        <div class="table_url_state__wrapper">
+                            <div class="url_state_dot"></div>
+                            <span>ACTIVE</span>
+                        </div>
+                    </td>
+                    <td>15 Mar 2021, 12:47 PM</td>
+                    <td>11</td>
+                    <td>minibytes/asdas</td>
+                    <td>Social</td>
+                </tr>
                
             </table>
         </div>
@@ -117,7 +146,7 @@
                     <button>Copy</button>
                     <button>Edit</button>
                     <button>Status</button>
-                    <button>QR Code</button>
+                    <button (click)="openQrCode()">QR Code</button>
                 </div>
             </div>
         </aside>

@@ -9,6 +9,8 @@ import {
   LinearScale,
   Title,
 } from 'chart.js';
+import { Observable, Observer } from 'rxjs';
+import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
 
 @Component({
   selector: 'app-client-panel',
@@ -16,16 +18,19 @@ import {
   styleUrls: ['./client-panel.component.scss']
 })
 export class ClientPanelComponent implements OnInit {
-
   public chart: Chart;
 
-  constructor() {
+  constructor(public componentToggler: ComponentTogglerService) {
     Chart.register(...registerables);
     Chart.register(LineController, LineElement, PointElement, LinearScale, Title,);
   }
 
   ngOnInit(): void {
     this.generateChart();
+  }
+
+  openQrCode(): void {
+    this.componentToggler.qrCodeModal = true;
   }
 
   generateChart(): void {
@@ -36,7 +41,7 @@ export class ClientPanelComponent implements OnInit {
         datasets: [
           {
             label: "Impressions",
-            data: [12, 19, 3, 5, 2, 3, 5,12, 19, 3, 5, 2, 3, 5],
+            data: [12, 19, 3, 5, 2, 3, 5, 12, 19, 3, 5, 2, 3, 5],
             backgroundColor: [
               "#2c3e50b9",
             ],
@@ -58,5 +63,5 @@ export class ClientPanelComponent implements OnInit {
   onWheel(event: WheelEvent): void {
     if (event.deltaY > 0) this.scrollableUrlStats.nativeElement.scrollLeft += 40;
     else this.scrollableUrlStats.nativeElement.scrollLeft -= 40;
- } 
+  }
 }
