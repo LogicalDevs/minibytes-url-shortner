@@ -51,13 +51,16 @@ export class ClientPanelComponent implements OnInit {
     this._urls.getUrlList().subscribe(
       (data: GetUrl[]) => {
         console.log('data from service: ', data),
-        this.urlList = data
+        this.urlList = data;
       },
       error => console.log(error)
     );
   }
 
   openQrCode(qrCodeURLToRedirect: string, name: string): void {
+    console.log("asd", qrCodeURLToRedirect)
+    console.log(name)
+    
     this.qrCodeUrl = {
       url: qrCodeURLToRedirect,
       name
@@ -97,11 +100,12 @@ export class ClientPanelComponent implements OnInit {
     else this.scrollableUrlStats.nativeElement.scrollLeft -= 40;
   }
 
-  selectTableUrl(tableUrlIndex): void {
+  selectTableUrl(tableUrlIndex: number): void {
     this.currentSelectedUrl = tableUrlIndex;
-    console.log(tableUrlIndex);
-  }
 
+    console.log(this.urlList[this.currentSelectedUrl].short_url);
+  }
+  
   callAlertModal(): void {
     this._alert.alertModal = {
       success: true,

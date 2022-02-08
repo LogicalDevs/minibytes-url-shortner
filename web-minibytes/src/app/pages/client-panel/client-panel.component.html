@@ -38,26 +38,26 @@
             <h3 class="user_urls_title">Url Overview</h3>
             <table>
                 <tr class="table_url_row" *ngFor="let url of urlList; let i = index" (click)="selectTableUrl(i)">
-                    <td class="table_url_id">{{ url.id_url || 'loading...'}}</td>
+                    <td class="table_url_id">{{ url.id_url }}</td>
                     <td>{{ url.name_url || '' }}</td>
                     <td>{{ url.created_in | date }}</td>
                     <td>11</td>
-                    <td>{{ url.short_url.split('http://')[1] || 'loading...'}}</td>
+                    <td>{{ url.short_url.split('http://')[1] }}</td>
                     <td class="table_url_state">
                         <div class="table_url_tag__wrapper">
-                            <span>{{ url.tags || 'loading...' }}</span>
+                            <span>{{ url.tags }}</span>
                         </div>
                     </td>
                 </tr>
             </table>
         </div>
-        <aside class="user_urls_about_wrapper" *ngIf="currentSelectedUrl > -1">
+        <aside class="user_urls_about_wrapper" *ngIf="currentSelectedUrl >= 0">
             <div class="user_urls_about_content">
-                Created: {{ urlList[currentSelectedUrl].created_in | date:'fullTime' || 'loading...'}}
+                Created: {{ urlList[currentSelectedUrl].created_in | date:'fullTime'}}
             </div>
             <div class="user_urls_about__item">
                 https://www.minibytes/
-                <input type="text" value={{urlList[currentSelectedUrl].short_url }}>
+                <input type="text" value={{urlList[currentSelectedUrl].short_url}}>
                 <div class="user_url_options">
                     <button (click)="callAlertModal()">Copy</button>
                     <button (click)="openQrCode(urlList[currentSelectedUrl].short_url, urlList[currentSelectedUrl].name_url)">QR Code</button>

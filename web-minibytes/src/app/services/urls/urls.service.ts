@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { GetUrl } from 'src/app/interfaces/url/get-url';
 import { config } from 'src/app/config';
 import { UserDataService } from '../user/user-data.service';
-import { NgForm } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,7 @@ export class UrlsService {
   ) { }
 
   getUrlList(): Observable<GetUrl[]> {
-    return this._http.get<GetUrl[]>(`http://${config.apiUrl}/urls/9`);
+    return this._http.get<GetUrl[]>(`http://${config.apiUrl}/urls`);
   }
 
   getUrlToRedirect(shortUrlId: string): Observable<GetUrl[]> {

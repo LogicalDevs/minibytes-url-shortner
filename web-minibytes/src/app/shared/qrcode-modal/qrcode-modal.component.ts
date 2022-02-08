@@ -14,9 +14,7 @@ export class QrcodeModalComponent implements OnInit {
   constructor(private componentToggler: ComponentTogglerService) { }
 
   ngOnInit(): void {
-    console.log("IN")
     console.log(this.qrCodeUrl);
-
   }
 
   closeModal(modal: HTMLElement): void {
