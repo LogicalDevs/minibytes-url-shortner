@@ -123,7 +123,7 @@
 }
 
 
-.table_url_state__wrapper {
+.table_url_tag__wrapper {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -132,7 +132,7 @@
     border-radius: 5px;
     margin-left: 1vw;
 
-    .url_state_dot {
+    .url_tag_dot {
         width: 10px;
         height: 10px;
         background-color: $info;
