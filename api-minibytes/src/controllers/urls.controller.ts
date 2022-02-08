@@ -11,22 +11,14 @@ import allowAuth from '../middlewares/allowURL.auth';
 import jwt_decode from "jwt-decode";
 import payload from '../interfaces/payload.interface';
 
-export const getUrls = async (req: Request, res: Response): Promise<Response> => {
-    try{
-        const response : QueryResult = await pool.query('SELECT * FROM urls');
-        return res.status(200).json(response.rows);
-    }
-    catch (e) {
-        console.log(e);
-        return res.status(500).json('Internal Server Error')
-    }
-}
-
 export const getUrlByID = async (req: Request, res: Response): Promise<Response> => {
-
+    
     const urlID = parseInt(req.params.id)
-    const verifyOwnership = await allowAuth.allowAuth(req, res, urlID)
 
+    const verifyUrlExistence: QueryResult = await pool.query(`SELECT count(*) FROM urls WHERE id_url = ${urlID}`)
+    if(!Number(verifyUrlExistence.rows[0].count)) return res.status(401).json("This URL doesn't exist!")
+
+    const verifyOwnership = await allowAuth.allowAuth(req, res, urlID)
     if(!verifyOwnership) return res.status(401).json('Not authorized!')
 
     try{
@@ -140,4 +132,4 @@ export const getUrlByShortURL = async (req: Request, res: Response): Promise<Res
         return res.status(500).json('Internal Server Error')
     }
 }
-export default { getUrls, getUrlByID, createUrl, deleteUrlByID, updateUrlByID, getUrlByShortURL };
+export default { getUrlByID, createUrl, deleteUrlByID, updateUrlByID, getUrlByShortURL };
