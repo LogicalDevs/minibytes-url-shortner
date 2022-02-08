@@ -16,6 +16,7 @@ import { AuthInterceptor } from './interceptor/auth/token.interceptor';
 import { QrcodeModalComponent } from './shared/qrcode-modal/qrcode-modal.component';
 import { AlertModalComponent } from './shared/alert-modal/alert-modal.component';
 import { RedirectComponent } from './pages/redirect/redirect.component';
+import { CreateUrlComponent } from './modals/create-url/create-url.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { RedirectComponent } from './pages/redirect/redirect.component';
     ClientPanelComponent,
     QrcodeModalComponent,
     AlertModalComponent,
-    RedirectComponent
+    RedirectComponent,
+    CreateUrlComponent
   ],
   imports: [
     BrowserModule,

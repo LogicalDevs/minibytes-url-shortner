@@ -1,8 +1,7 @@
-<!-- <p (click)="downloadImage()">qrcode-modal works!</p> -->
 <section class="qrcode_modal">
     <div class="qrcode_modal__container slide-in-right" #modal>
         <img src="../../../assets/icons/close_small.svg" alt="close qr code modal button" id="close-button" (click)="closeModal(modal)">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.youtube.com/watch?v=Y6Rd9ZQBVG0.png" alt="">
+        <img src="{{'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + qrCodeUrl }}" alt="">
         <button (click)="downloadImage()">DOWNLOAD</button>
     </div>
 </section>

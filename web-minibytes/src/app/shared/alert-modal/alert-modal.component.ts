@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AlertModal } from 'src/app/interfaces/alert/alert-modal';
+import { Component, OnInit } from '@angular/core';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
 
 @Component({
@@ -9,12 +9,13 @@ import { ComponentTogglerService } from 'src/app/services/component-toggler.serv
 })
 export class AlertModalComponent implements OnInit {
 
-  @Input() alert: AlertModal;
-
-  constructor(private _componentToggler : ComponentTogglerService) { }
+  constructor(
+    private _componentToggler: ComponentTogglerService,
+    public alert: AlertsService
+  ) { }
 
   ngOnInit(): void { 
-    console.log(this.alert);
+    console.log('content:', this.alert.alertModal);
 
     setTimeout(() => {
       this._componentToggler.alertModal = false;

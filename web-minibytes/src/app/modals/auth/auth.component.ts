@@ -1,7 +1,15 @@
-import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertModal } from 'src/app/interfaces/alert/alert-modal';
 import { CreateUser } from 'src/app/interfaces/auth/create-user';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { AuthenticationService } from 'src/app/services/auth/authentication.service';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
 
@@ -11,23 +19,22 @@ import { ComponentTogglerService } from 'src/app/services/component-toggler.serv
   styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent implements OnInit {
-
   constructor(
     public componentToggler: ComponentTogglerService,
     private auth: AuthenticationService,
     private _router: Router,
-    private cdRef: ChangeDetectorRef
-  ) { }
+    private cdRef: ChangeDetectorRef,
+    private _alert: AlertsService
+  ) {}
 
   @Input() actionType: string;
-  @Input() alertModal: AlertModal;
   @ViewChild('registerWrapper') registerWrapper: ElementRef;
   @ViewChild('loginWrapper') loginWrapper: ElementRef;
 
   captcha: string;
   activeTab: number = 1;
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngAfterViewChecked(): void {
     if (this.actionType === 'Login') this.switchAuthTab('Login');
@@ -36,9 +43,7 @@ export class AuthComponent implements OnInit {
     this.cdRef.detectChanges();
   }
 
-
   switchAuthTab(tabName: string): void {
-    console.log("entrou", tabName);
 
     if (tabName === 'Login') {
       this.activeTab = 1;
@@ -64,7 +69,10 @@ export class AuthComponent implements OnInit {
   registeAccount(registerForm, authModal: HTMLElement): void {
     const formData = registerForm.form.value;
 
-    if (registerForm.form.status === 'INVALID') return;
+    if (registerForm.form.status === 'INVALID') {
+      this.callErrorModal(false, 'Please Verify Your Inputs!', 0);
+      return;
+    }
     if (!formData.password === formData.confirmPassword) return;
 
     const createUser: CreateUser = {
@@ -72,49 +80,39 @@ export class AuthComponent implements OnInit {
       username: formData.username,
       password: formData.password,
       confirmpassword: formData.password,
-    }
+    };
 
     this.auth.registerUser(createUser).subscribe(
-      data => {
+      (data) => {
         this.switchAuthTab('Login');
       },
-      error => {
-        this.alertModal = {
-          success: false,
-          message: 'Something went wrong!',
-          code: error.status
-        }
-
-        this.componentToggler.alertModal = true;
+      (error) => {
+        this.callErrorModal(false, 'Something went wrong!', error.status);
       }
     );
   }
 
   loginAccount(loginForm, authModal: HTMLElement): void {
-    this.auth.loginUser(
-      loginForm.form.value.username,
-      loginForm.form.value.password
-      
-    ).subscribe(
-      data => {
-        localStorage.setItem('userToken', data['token']);
-        this.sucessAuthentication(authModal);
-
-      },
-      error => {
-        this.alertModal = {
-          success: false,
-          message: 'Something went wrong!',
-          code: error.status
+    this.auth
+      .loginUser(loginForm.form.value.username, loginForm.form.value.password)
+      .subscribe(
+        (data) => {
+          localStorage.setItem('userToken', data['token']);
+          this.sucessAuthentication(authModal);
+        },
+        (error) => {
+          this.callErrorModal(
+            false,
+            'Please verify your inputs!',
+            error.status
+          );
         }
-        this.componentToggler.alertModal = true;
-      }
-    );
+      );
   }
 
   resolved(captchaResponse: string): void {
     this.captcha = captchaResponse;
-    console.log("captcha ->", this.captcha);
+    console.log('captcha ->', this.captcha);
   }
 
   sucessAuthentication(authModal: HTMLElement): void {
@@ -124,5 +122,10 @@ export class AuthComponent implements OnInit {
     setTimeout(() => {
       this._router.navigate(['client-panel']);
     }, 500);
+  }
+
+  callErrorModal(success: boolean, message: string, code: number): void {
+    this._alert.alertModal = { success, message, code };
+    this.componentToggler.alertModal = true;
   }
 }

@@ -1,0 +1,47 @@
+<app-alert-modal *ngIf="componentToggler.alertModal"></app-alert-modal>
+
+<nav class="create_url_modal slide-in-left" #navbar>
+    <img src="../../../assets/icons/close_small.svg" 
+        alt="button to close navigation bar" 
+        id="close-button"
+        (click)="closeNavBar(navbar)"
+    >
+
+    <header class="create_url_form__header">
+        <h4>CREATE URL</h4>
+    </header>
+
+    <form class="create_url_form" #createNewUrl="ngForm" (ngSubmit)="createNewUrlForm(createNewUrl, navbar)">
+
+        <div class="create_url_items_wrapper">
+            <div class="create_url_form__item">
+                <input type="text" placeholder="My YouTube Video" class="create_url_input" name="name_url" required ngModel>
+            </div>
+            <div class="create_url_form__item">
+                <input type="text" placeholder="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="create_url_input" name="main_url" required ngModel>
+            </div>
+            <div class="create_url_form__item">
+                <input type="text" placeholder="Custom url" class="create_url_input" name="short_url" required ngModel>
+            </div>
+            <div class="create_url_form__item">
+                <select name="tags" id="select-tags" ngModel required>
+                    <option value="Blog">Blog</option>
+                    <option value="Business">Business</option>
+                    <option value="Educational">Educational</option>
+                    <option value="E-Commerce">E-commerce</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Forum">Forum</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="tracking_alert">
+                <input type="checkbox" name="tracked">
+                <a class="tracking_alert__text">Tracked URL</a>
+            </div>
+            <input type="submit" value="Criar" id="button-createURL">
+        </div>
+    </form>
+    <div class="modal_socials">
+        <a target="_blank" href="https://github.com/LogicalDevs/minibytes-url-shortner"><img src="../../../assets/icons/github.svg" alt="logical developers github"></a>
+    </div>
+</nav>
