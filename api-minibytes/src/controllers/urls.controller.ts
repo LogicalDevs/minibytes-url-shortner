@@ -54,14 +54,14 @@ export const createUrl = async (req: Request, res: Response): Promise<Response> 
         let qr_code = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + main_url;
 
         let generatedString = CryptoJS.AES.encrypt(Date.now().toString(), '123').toString().substring(0, 8);
-        let short_url = "http://minibytes/" + generatedString;
+        let short_url =  generatedString;
         
         url = {
             id_user,
             name_url,
             created_in,
             main_url, 
-            short_url, 
+            short_url,
             tags,
             qr_code
         }
@@ -108,4 +108,19 @@ export const updateUrlByID  = async (req: Request, res: Response): Promise<Respo
         return res.status(500).json('Internal Server Error')
     }
 }
-export default { getUrls, getUrlByID, createUrl, deleteUrlByID, updateUrlByID };
+
+export const getUrlByShortURL = async (req: Request, res: Response): Promise<Response> => {
+    const data = req.body;
+
+    try {
+        const shortURL: string = req.params.shortURL;
+        const response: QueryResult = await pool.query(`SELECT * FROM urls WHERE short_url LIKE 'flavio'`);
+
+        return res.json(response.rows);
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server Error')
+    }
+}
+export default { getUrls, getUrlByID, createUrl, deleteUrlByID, updateUrlByID, getUrlByShortURL };

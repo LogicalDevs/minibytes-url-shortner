@@ -15,6 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './interceptor/auth/token.interceptor';
 import { QrcodeModalComponent } from './shared/qrcode-modal/qrcode-modal.component';
 import { AlertModalComponent } from './shared/alert-modal/alert-modal.component';
+import { RedirectComponent } from './pages/redirect/redirect.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AlertModalComponent } from './shared/alert-modal/alert-modal.component'
     AuthComponent,
     ClientPanelComponent,
     QrcodeModalComponent,
-    AlertModalComponent
+    AlertModalComponent,
+    RedirectComponent
   ],
   imports: [
     BrowserModule,

@@ -9,9 +9,10 @@ import {
   LinearScale,
   Title,
 } from 'chart.js';
-import { Observable, Observer } from 'rxjs';
 import { AlertModal } from 'src/app/interfaces/alert/alert-modal';
+import { GetUrl } from 'src/app/interfaces/url/get-url';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
+import { UrlsService } from 'src/app/services/urls/urls.service';
 
 @Component({
   selector: 'app-client-panel',
@@ -19,16 +20,28 @@ import { ComponentTogglerService } from 'src/app/services/component-toggler.serv
   styleUrls: ['./client-panel.component.scss']
 })
 export class ClientPanelComponent implements OnInit {
-  public chart: Chart;
+  
+  chart: Chart;
+  urlList: GetUrl[];
+  currentSelectedUrl: number; 
+  
   @Input() alertModal: AlertModal; 
 
-  constructor(public componentToggler: ComponentTogglerService) {
+  constructor(public componentToggler: ComponentTogglerService, private _urls: UrlsService) {
     Chart.register(...registerables);
     Chart.register(LineController, LineElement, PointElement, LinearScale, Title,);
   }
 
   ngOnInit(): void {
     this.generateChart();
+
+    this._urls.getUrlList().subscribe(
+      (data: GetUrl[]) => {
+        console.log('data from service: ' ,data),
+        this.urlList = data
+      },
+      error => console.log(error)
+    );
   }
 
   openQrCode(): void {
@@ -65,5 +78,21 @@ export class ClientPanelComponent implements OnInit {
   onWheel(event: WheelEvent): void {
     if (event.deltaY > 0) this.scrollableUrlStats.nativeElement.scrollLeft += 40;
     else this.scrollableUrlStats.nativeElement.scrollLeft -= 40;
+  }
+
+  selectTableUrl(tableUrlIndex): void {
+    console.log(tableUrlIndex);
+    this.currentSelectedUrl = tableUrlIndex;
+  }
+
+  callAlertModal(): void {
+    this.alertModal = {
+      success: true,
+      message: 'Copied to clipboard!',
+      code: 200
+    }
+
+    this.componentToggler.alertModal = true;
+    console.log("hello")
   }
 }
