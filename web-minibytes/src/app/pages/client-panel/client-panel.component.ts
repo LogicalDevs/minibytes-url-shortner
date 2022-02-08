@@ -26,6 +26,7 @@ export class ClientPanelComponent implements OnInit {
   currentSelectedUrl: number; 
   
   @Input() alertModal: AlertModal; 
+  @Input() qrCodeUrl;
 
   constructor(public componentToggler: ComponentTogglerService, private _urls: UrlsService) {
     Chart.register(...registerables);
@@ -44,7 +45,11 @@ export class ClientPanelComponent implements OnInit {
     );
   }
 
-  openQrCode(): void {
+  openQrCode(qrCodeURLToRedirect: string, name: string): void {
+    this.qrCodeUrl = {
+      url: qrCodeURLToRedirect,
+      name
+    } 
     this.componentToggler.qrCodeModal = true;
   }
 

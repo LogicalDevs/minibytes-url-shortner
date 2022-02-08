@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
 
@@ -9,9 +9,13 @@ import { ComponentTogglerService } from 'src/app/services/component-toggler.serv
 })
 export class QrcodeModalComponent implements OnInit {
 
+  @Input() qrCodeUrl;
+
   constructor(private componentToggler: ComponentTogglerService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.qrCodeUrl);
+  }
 
   closeModal(modal: HTMLElement): void {
     modal.classList.remove('slide-in-right');
@@ -23,11 +27,12 @@ export class QrcodeModalComponent implements OnInit {
   }
 
   //#region download qrcode from url
-  name = 'Name for the file';
+  name;
   base64Image: any;
 
   downloadImage() {
-    const imageUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.youtube.com/watch?v=Y6Rd9ZQBVG0.png";
+    this.name = this.qrCodeUrl.name;
+    const imageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${this.qrCodeUrl.url}`;
 
     this.getBase64ImageFromURL(imageUrl).subscribe(base64data => {
       const link = document.createElement("a");

@@ -1,6 +1,7 @@
 <app-alert-modal *ngIf="componentToggler.alertModal" [alert]="alertModal"></app-alert-modal>
+<app-create-url *ngIf="componentToggler.createUrlModal"></app-create-url>
+<app-qrcode-modal *ngIf="componentToggler.qrCodeModal" [qrCodeUrl]="qrCodeUrl"></app-qrcode-modal>
 <app-navbar></app-navbar>
-<app-qrcode-modal *ngIf="componentToggler.qrCodeModal"></app-qrcode-modal>
 
 <section id="client_panel">
     <div class="active_urls_chart_wrapper scroll-width-none" (wheel)="onWheel($event)" #scrollableUrlStats>
@@ -56,10 +57,10 @@
             </div>
             <div class="user_urls_about__item">
                 https://www.minibytes/
-                <input type="text" value="ola">
+                <input type="text" value={{urlList[currentSelectedUrl].short_url}}>
                 <div class="user_url_options">
                     <button (click)="callAlertModal()">Copy</button>
-                    <button (click)="openQrCode()">QR Code</button>
+                    <button (click)="openQrCode(urlList[currentSelectedUrl].short_url, urlList[currentSelectedUrl].name_url)">QR Code</button>
                     <button>Edit</button>
                 </div>
             </div>
