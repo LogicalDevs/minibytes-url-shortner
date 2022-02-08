@@ -49,7 +49,7 @@ export const createUrl = async (req: Request, res: Response): Promise<Response> 
         if(!short_url) return res.status(400).json("Short URL must be inserted!")
 
         const verifyShortUrl : QueryResult = await pool.query(`SELECT count(*) FROM urls WHERE short_url = '${short_url}'`);
-        if(verifyShortUrl.rows[0] != 0) return res.status(400).json("Short URL must be unique!")
+        if(verifyShortUrl.rows[0].count != 0) return res.status(400).json("Short URL must be unique!")
 
         if(!tags) return res.status(400).json("Tags must be inserted!")
         if(!verifyTag.tagValidator.isValid(tags)) return res.status(400).json("Tag is not a valid type!")
