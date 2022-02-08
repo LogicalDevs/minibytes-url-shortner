@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
+import { UserDataService } from 'src/app/services/user/user-data.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,7 +9,10 @@ import { ComponentTogglerService } from 'src/app/services/component-toggler.serv
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private componentToggler: ComponentTogglerService) { }
+  constructor(
+    private componentToggler: ComponentTogglerService,
+    public user: UserDataService  
+  ) { }
 
   ngOnInit(): void { } 
 

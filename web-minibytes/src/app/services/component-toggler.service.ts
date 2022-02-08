@@ -10,5 +10,5 @@ export class ComponentTogglerService {
   authenticationModal: boolean = false;
   qrCodeModal: boolean = false;
   alertModal: boolean = false;
-  createUrlModal: boolean = false;
+  createUrlModal: boolean = true;
 }

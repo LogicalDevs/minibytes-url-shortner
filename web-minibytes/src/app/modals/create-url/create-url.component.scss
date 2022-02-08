@@ -1,4 +1,4 @@
-@import '../../../styles.scss';
+@import "../../../styles.scss";
 
 .create_url_modal {
     position: fixed;
@@ -11,7 +11,6 @@
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
-
 }
 
 #close-button {
@@ -26,7 +25,6 @@
         transform: translateY(2px);
     }
 }
-
 
 .create_url_form {
     width: 100%;
@@ -60,7 +58,7 @@
 
     > input {
         width: 70%;
-        padding: .7vh 2px;
+        padding: 0.7vh 2px;
         margin: 1vh 0vw;
     }
 
@@ -83,23 +81,26 @@
         }
 
         .input_indentifier {
-            margin-bottom: .5vh;
+            margin-bottom: 0.5vh;
         }
 
         .create_url_input {
             margin: 0vh 0vw 2vh 0vw;
             padding: 1vh 5px;
             width: 100%;
+
+            &:invalid {
+                border: 1px solid $warning;
+            }
         }
-    } 
+    }
 
     #button-createURL {
-        @include buttons($primary, $secondary); 
+        @include buttons($primary, $secondary);
         margin-top: 5vh;
         width: 60%;
     }
 }
-
 
 .create_url_form .tracking_alert {
     width: 70%;
@@ -109,8 +110,8 @@
     margin-top: 2vh;
 
     .tracking_alert__text {
-        font-size: .9rem;
-        margin-left: .5vw;
+        font-size: 0.9rem;
+        margin-left: 0.5vw;
         font-weight: bold;
     }
 

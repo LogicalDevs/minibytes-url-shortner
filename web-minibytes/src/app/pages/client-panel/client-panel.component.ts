@@ -30,7 +30,7 @@ export class ClientPanelComponent implements OnInit {
 
   constructor(public componentToggler: ComponentTogglerService, private _urls: UrlsService) {
     Chart.register(...registerables);
-    Chart.register(LineController, LineElement, PointElement, LinearScale, Title,);
+    Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
   }
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class ClientPanelComponent implements OnInit {
 
     this._urls.getUrlList().subscribe(
       (data: GetUrl[]) => {
-        console.log('data from service: ' ,data),
+        console.log('data from service: ', data),
         this.urlList = data
       },
       error => console.log(error)

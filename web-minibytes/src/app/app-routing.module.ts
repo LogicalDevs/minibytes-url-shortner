@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateUrlComponent } from './modals/create-url/create-url.component';
 import { ClientPanelComponent } from './pages/client-panel/client-panel.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RedirectComponent } from './pages/redirect/redirect.component';

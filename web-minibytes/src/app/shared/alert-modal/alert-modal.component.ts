@@ -14,7 +14,7 @@ export class AlertModalComponent implements OnInit {
   constructor(private _componentToggler : ComponentTogglerService) { }
 
   ngOnInit(): void { 
-    console.log(this.alert);
+    console.log('content:', this.alert);
 
     setTimeout(() => {
       this._componentToggler.alertModal = false;
