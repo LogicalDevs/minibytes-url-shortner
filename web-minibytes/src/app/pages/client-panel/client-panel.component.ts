@@ -2,17 +2,17 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import {
   Chart,
   registerables,
-  ChartConfiguration,
   LineController,
   LineElement,
   PointElement,
   LinearScale,
   Title,
 } from 'chart.js';
-import { AlertModal } from 'src/app/interfaces/alert/alert-modal';
 import { GetUrl } from 'src/app/interfaces/url/get-url';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { ComponentTogglerService } from 'src/app/services/component-toggler.service';
 import { UrlsService } from 'src/app/services/urls/urls.service';
+import { QrcodeModalComponent } from 'src/app/shared/qrcode-modal/qrcode-modal.component';
 
 @Component({
   selector: 'app-client-panel',
@@ -22,13 +22,25 @@ import { UrlsService } from 'src/app/services/urls/urls.service';
 export class ClientPanelComponent implements OnInit {
   
   chart: Chart;
-  urlList: GetUrl[];
+  urlList: GetUrl[] = [{
+    id_url: -1,
+    id_user: -1,
+    name_url: '',
+    created_in: 11111111111,
+    main_url: '',
+    short_url: '',
+    tags: '',
+    qr_code: ''
+  }];
   currentSelectedUrl: number; 
   
-  @Input() alertModal: AlertModal; 
   @Input() qrCodeUrl;
 
-  constructor(public componentToggler: ComponentTogglerService, private _urls: UrlsService) {
+  constructor(
+    public componentToggler: ComponentTogglerService, 
+    private _urls: UrlsService,
+    private _alert: AlertsService
+  ) {
     Chart.register(...registerables);
     Chart.register(LineController, LineElement, PointElement, LinearScale, Title);
   }
@@ -86,18 +98,17 @@ export class ClientPanelComponent implements OnInit {
   }
 
   selectTableUrl(tableUrlIndex): void {
-    console.log(tableUrlIndex);
     this.currentSelectedUrl = tableUrlIndex;
+    console.log(tableUrlIndex);
   }
 
   callAlertModal(): void {
-    this.alertModal = {
+    this._alert.alertModal = {
       success: true,
       message: 'Copied to clipboard!',
       code: 200
     }
 
     this.componentToggler.alertModal = true;
-    console.log("hello")
   }
 }

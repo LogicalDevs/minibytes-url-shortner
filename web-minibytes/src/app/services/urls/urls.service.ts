@@ -17,7 +17,7 @@ export class UrlsService {
   ) { }
 
   getUrlList(): Observable<GetUrl[]> {
-    return this._http.get<GetUrl[]>(`http://${config.apiUrl}/urls/${this._user.userPayload.id}`);
+    return this._http.get<GetUrl[]>(`http://${config.apiUrl}/urls/9`);
   }
 
   getUrlToRedirect(shortUrlId: string): Observable<GetUrl[]> {
