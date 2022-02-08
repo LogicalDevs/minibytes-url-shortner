@@ -7,8 +7,9 @@ import { pool } from '../database';
 import urlInterface from '../interfaces/url.interface';
 import { verifyURL } from '../namespaces/url.namespace';
 import { verifyTag } from '../namespaces/tags.namespace';
-import allowAuth from '../middlewares/allow.auth';
-
+import allowAuth from '../middlewares/allowURL.auth';
+import jwt_decode from "jwt-decode";
+import payload from '../interfaces/payload.interface';
 
 export const getUrls = async (req: Request, res: Response): Promise<Response> => {
     try{
@@ -22,6 +23,12 @@ export const getUrls = async (req: Request, res: Response): Promise<Response> =>
 }
 
 export const getUrlByID = async (req: Request, res: Response): Promise<Response> => {
+
+    const urlID = parseInt(req.params.id)
+    const verifyOwnership = await allowAuth.allowAuth(req, res, urlID)
+
+    if(!verifyOwnership) return res.status(401).json('Not authorized!')
+
     try{
         const linkID = parseInt(req.params.id)
         const response: QueryResult = await pool.query(`SELECT * FROM urls WHERE id_url = ${linkID}`);
@@ -35,13 +42,7 @@ export const getUrlByID = async (req: Request, res: Response): Promise<Response>
 
 export const createUrl = async (req: Request, res: Response): Promise<Response> => { 
     try{
-        let { id_user, name_url, main_url, short_url, tags } = req.body;
-
-        if(!id_user) return res.status(400).json("User ID must be inserted!")
-        if(!Number(id_user)) return res.status(400).json("User ID must be a number!")
-
-        const userVerification = await pool.query(`SELECT * FROM users WHERE id_user = ${id_user}`);
-        if(!userVerification.rowCount) return res.status(400).json("User must exist!")
+        let { name_url, main_url, short_url, tags } = req.body;
 
         if(!name_url) return res.status(400).json("URL Name must be inserted!")
         if(!main_url) return res.status(400).json("Main URL must be inserted!")
@@ -58,6 +59,10 @@ export const createUrl = async (req: Request, res: Response): Promise<Response> 
         let created_in = Date.now();
         let qr_code = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + main_url;
         
+        let authHeader = req.headers.authorization;
+        let headerID: payload = jwt_decode(authHeader!);
+        let id_user = headerID.id
+
         url = {
             id_user,
             name_url,
@@ -82,10 +87,15 @@ export const createUrl = async (req: Request, res: Response): Promise<Response> 
 }
 
 export const deleteUrlByID  = async (req: Request, res: Response): Promise<Response> => {
+
+    const urlID = parseInt(req.params.id)
+    const verifyOwnership = await allowAuth.allowAuth(req, res, urlID)
+
+    if(!verifyOwnership) return res.status(401).json('Not authorized!')
+
     try{
-        const linkID = parseInt(req.params.id)
-        const response: QueryResult = await pool.query(`DELETE FROM urls WHERE id_url = ${linkID}`);
-        return res.json(`Link ${linkID} deleted sucessfully`);
+        const response: QueryResult = await pool.query(`DELETE FROM urls WHERE id_url = ${urlID}`);
+        return res.json(`Link ${urlID} deleted successfully`);
     }
     catch (e) {
         console.log(e);
@@ -96,14 +106,19 @@ export const deleteUrlByID  = async (req: Request, res: Response): Promise<Respo
 export const updateUrlByID  = async (req: Request, res: Response): Promise<Response> => {
     
     const data = req.body
-    const verifyOwnership = await allowAuth.allowAuth(req, res, data.user_id)
+    const urlID = parseInt(req.params.id)
+    const verifyOwnership = await allowAuth.allowAuth(req, res, urlID)
 
     if(!verifyOwnership) return res.status(401).json('Not authorized!')
+    if(!data.name_url) return res.status(400).json("URL Name must be inserted!")
+    if(!data.short_url) return res.status(400).json("Short URL must be inserted!")
+    if(!data.tags) return res.status(400).json("Tags must be inserted!")
+    if(!verifyTag.tagValidator.isValid(data.tags)) return res.status(400).json("Tag is not a valid type!")
 
     try{
         const linkID = parseInt(req.params.id)
         const response: QueryResult = await pool.query(`UPDATE urls SET name_url = '${data.name_url}', tags = '${data.tags}' WHERE id_url = ${linkID}`);
-        return res.json(`Link ${linkID} updated sucessfully`);
+        return res.json(`Link ${linkID} updated successfully`);
     }
     catch (e) {
         console.log(e);
