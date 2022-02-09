@@ -7,34 +7,11 @@ import { pool } from '../database';
 import userInterface from '../interfaces/user.interface';
 import { verifyPassword } from '../namespaces/password.namespace';
 
-
-const getUsers = async (req: Request, res: Response): Promise<Response> => {
-    try{
-        const response : QueryResult = await pool.query('SELECT * FROM users');
-        return res.status(200).json(response.rows);
-    }
-    catch (e) {
-        console.log(e);
-        return res.status(500).json('Internal Server Error')
-    }
-}
-
 export const getUserByID = async (req: Request, res: Response): Promise<Response> => {
     try{
         const userID = parseInt(req.params.id)
         const response: QueryResult = await pool.query(`SELECT * FROM users WHERE id_user = ${userID}`);
         return res.json(response.rows);
-    }
-    catch (e) {
-        console.log(e);
-        return res.status(500).json('Internal Server Error')
-    }
-}
-
-export const getUserByIDAllowAuth = async (req: Request, res: Response, incomingUserID: number) => {
-    try{
-        const response: QueryResult = await pool.query(`SELECT * FROM users WHERE id_user = ${incomingUserID}`);
-        return response.rows[0];
     }
     catch (e) {
         console.log(e);
@@ -117,4 +94,4 @@ export const createUser = async (req: Request, res: Response): Promise<Response>
     }
 }
 
-export default { getUsers, getUserByID, getUserByIDAllowAuth, getUserByUsername, createUser };
+export default { getUserByID, getUserByUsername, createUser };
