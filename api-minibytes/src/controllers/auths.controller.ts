@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import userController from '../controllers/users.controller';
 import * as bcrypt from 'bcrypt';
+import payload from '../interfaces/payload.interface';
 
 
 export const login = async (req: Request, res: Response) => {
@@ -12,7 +13,7 @@ export const login = async (req: Request, res: Response) => {
     if (!user) return res.status(404).json('User not found');
     if (!(await bcrypt.compare('' + password, user.password))) return res.status(404).json('User not found')
 
-    const token = jwt.sign({ id: user.id_user }, process.env.AUTH_TOKEN!, {
+    const token = jwt.sign({ id: user.id_user, name_user: user.name_user }, process.env.AUTH_TOKEN!, {
         expiresIn: '3d'
     })
 
