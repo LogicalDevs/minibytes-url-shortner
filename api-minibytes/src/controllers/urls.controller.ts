@@ -51,9 +51,7 @@ export const createUrl = async (req: Request, res: Response): Promise<Response> 
         let created_in = Date.now();
         let qr_code = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + main_url;
         
-        let authHeader = req.headers.authorization;
-        let headerID: payload = jwt_decode(authHeader!);
-        let id_user = headerID.id
+        let id_user = await userDecodeToken(req.headers.authorization!)
 
         url = {
             id_user,
@@ -132,4 +130,32 @@ export const getUrlByShortURL = async (req: Request, res: Response): Promise<Res
         return res.status(500).json('Internal Server Error')
     }
 }
-export default { getUrlByID, createUrl, deleteUrlByID, updateUrlByID, getUrlByShortURL };
+
+export const getUserURLs = async (req: Request, res: Response): Promise<Response> => {
+    
+    const userID = parseInt(req.params.id)
+    let userIDLoggedIn = await userDecodeToken(req.headers.authorization!)
+
+    if(userID != userIDLoggedIn) return res.status(400).json("Must be the owner of the urls!")
+
+    try{
+        const response: QueryResult = await pool.query(`SELECT * FROM urls WHERE id_user = ${userID}`)
+        
+        return res.json(response.rows);
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server Error')
+    }
+}
+
+const userDecodeToken = (authHeader: string) => {
+
+    let headerID: payload = jwt_decode(authHeader!);
+    let id_user = headerID.id
+
+    return id_user;
+}
+
+
+export default { getUrlByID, createUrl, deleteUrlByID, updateUrlByID, getUrlByShortURL, getUserURLs };

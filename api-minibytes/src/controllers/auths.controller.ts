@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import userController from '../controllers/users.controller';
 import * as bcrypt from 'bcrypt';
-import payload from '../interfaces/payload.interface';
 
 
 export const login = async (req: Request, res: Response) => {
